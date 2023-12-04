@@ -243,6 +243,10 @@ class Japx {
         relationships[key] = {_data: typeIdPair.toMap()};
         json.remove(key);
       }
+      if (json[key] == {}) {
+        relationships[key] = {_data: null};
+        json.remove(key);
+      }
       if (json[key] == null) {
         continue;
       }
