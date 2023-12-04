@@ -234,6 +234,11 @@ class Japx {
       }
       if (json[key] is Map<String, dynamic>) {
         final map = json[key] as Map<String, dynamic>?;
+        if (map == {}){
+          relationships[key] = {_data: null};
+          json.remove(key);
+          continue;
+        }
         final typeIdPair = _TypeIdPair.from(map);
         if (typeIdPair == null) {
           attributes[key] = map;
@@ -241,10 +246,6 @@ class Japx {
           continue;
         }
         relationships[key] = {_data: typeIdPair.toMap()};
-        json.remove(key);
-      }
-      if (json[key] == {}) {
-        relationships[key] = {_data: null};
         json.remove(key);
       }
       if (json[key] == null) {
