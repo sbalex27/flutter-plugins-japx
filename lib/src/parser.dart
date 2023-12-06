@@ -41,6 +41,7 @@ final String _data = 'data';
 final String _included = 'included';
 final String _attributes = 'attributes';
 final String _relationships = 'relationships';
+final Map<String, dynamic> _emptyRelationship = {'type': null};
 
 class Japx {
   /// Converts simple flat JSON object to JSON:API object.
@@ -234,7 +235,7 @@ class Japx {
       }
       if (json[key] is Map<String, dynamic>) {
         final map = json[key] as Map<String, dynamic>?;
-        if (map?.isEmpty ?? false){
+        if (map == _emptyRelationship){
           relationships[key] = {_data: null};
           json.remove(key);
           continue;
