@@ -50,7 +50,7 @@ class Japx {
   /// - parameter additionalParams:  Additional Map<String: dynamic> to add with `data` to JSON:API object.
   ///
   /// - returns: JSON:API object.
-  static Map<String, dynamic> encode(Object json,
+  static Map<String, dynamic> encode(Object? json,
       {Map<String, dynamic>? additionalParams}) {
     final params = additionalParams ?? {};
     if (json is List) {
@@ -62,6 +62,9 @@ class Japx {
     }
     if (json is Map<String, dynamic>) {
       params[_data] = _encodeAttributesAndRelationships(json);
+    }
+    if (json == null) {
+      params[_data] = null;
     }
     return params;
   }

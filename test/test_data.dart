@@ -95,6 +95,9 @@ Future<Map<String, dynamic>> resultEncoding7() async =>
 Future<Map<String, dynamic>> resultEncoding8() async =>
     parseJsonFromPath('assets/result/encoding/result-encoding-8.json');
 
+Future<Map<String, dynamic>> resultEncoding9() async =>
+    parseJsonFromPath('assets/result/encoding/result-encoding-9.json');
+
 Future<Map<String, dynamic>> parseJsonFromPath(String assetsPath) async {
   Map<String, dynamic>? json =
       jsonDecode(await File(assetsPath).readAsString());

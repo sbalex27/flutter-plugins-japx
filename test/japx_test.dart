@@ -82,6 +82,9 @@ void main() {
       'Nullable relationships',
       () async => compare(
           Japx.encode(await encodingSample8()), await resultEncoding8()));
+
+  test('Null body',
+      () async => expect(Japx.encode(null), await resultEncoding9()));
 }
 
 void compare(Map<String, dynamic> sample, Map<String, dynamic> result) =>
