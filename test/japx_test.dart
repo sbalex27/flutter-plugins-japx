@@ -74,9 +74,14 @@ void main() {
           Japx.encode(await encodingSample6()), await resultEncoding6()));
 
   test(
-      'Empty relationship encoding',
+      'Resource identifiers',
       () async => compare(
           Japx.encode(await encodingSample7()), await resultEncoding7()));
+
+  test(
+      'Nullable relationships',
+      () async => compare(
+          Japx.encode(await encodingSample8()), await resultEncoding8()));
 }
 
 void compare(Map<String, dynamic> sample, Map<String, dynamic> result) =>

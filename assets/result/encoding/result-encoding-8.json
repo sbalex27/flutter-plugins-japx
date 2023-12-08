@@ -1,0 +1,11 @@
+{
+    "data": {
+        "type": "products",
+        "id": "1",
+        "relationships": {
+            "category": {
+                "data": null
+            }
+        }
+    }
+}
