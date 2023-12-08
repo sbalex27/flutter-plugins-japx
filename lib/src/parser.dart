@@ -235,7 +235,7 @@ class Japx {
       }
       if (json[key] is Map<String, dynamic>) {
         final map = json[key] as Map<String, dynamic>?;
-        if (MapEquality().equals(map, _emptyRelationship)){
+        if (MapEquality().equals(map, _emptyRelationship)) {
           relationships[key] = {_data: null};
           json.remove(key);
           continue;
@@ -255,8 +255,8 @@ class Japx {
       attributes[key] = json[key];
       json.remove(key);
     }
-    json[_attributes] = attributes;
-    json[_relationships] = relationships;
+    if (attributes.isNotEmpty) json[_attributes] = attributes;
+    if (relationships.isNotEmpty) json[_relationships] = relationships;
     return json;
   }
 
