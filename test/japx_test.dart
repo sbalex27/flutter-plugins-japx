@@ -85,6 +85,11 @@ void main() {
 
   test('Null body',
       () async => expect(Japx.encode(null), await resultEncoding9()));
+
+  test(
+      'Null field relationship',
+      () async => expect(
+          Japx.encode(await encodingSample10()), await resultEncoding10()));
 }
 
 void compare(Map<String, dynamic> sample, Map<String, dynamic> result) =>

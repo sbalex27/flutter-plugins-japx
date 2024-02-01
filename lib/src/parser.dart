@@ -253,6 +253,7 @@ class Japx {
         json.remove(key);
       }
       if (json[key] == null) {
+        json.remove(key);
         continue;
       }
       attributes[key] = json[key];

@@ -1,0 +1,11 @@
+{
+    "data": {
+        "type": "products",
+        "id": "1",
+        "attributes": {
+            "name": "Product 1",
+            "price": 100,
+            "currency": "USD"
+        }
+    }
+}
