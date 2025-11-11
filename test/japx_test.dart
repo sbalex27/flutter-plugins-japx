@@ -87,7 +87,7 @@ void main() {
       () async => expect(Japx.encode(null), await resultEncoding9()));
 
   test(
-      'Null field relationship',
+      'Null field',
       () async => expect(
           Japx.encode(await encodingSample10()), await resultEncoding10()));
 }
