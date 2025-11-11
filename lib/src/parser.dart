@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:collection/collection.dart';
 
 class _TypeIdPair {
@@ -222,50 +223,40 @@ class Japx {
       }
       if (json[key] is List) {
         final array = json[key] as List;
-        if (array.isEmpty) {
-          relationships[key] = {_data: []};
-          json.remove(key);
-          continue;
-        }
         final isArrayOfRelationships = array.first is Map<String, dynamic> &&
             _TypeIdPair.from(array.first) != null;
-        if (!isArrayOfRelationships) {
-          attributes[key] = array;
+        if (isArrayOfRelationships) {
+          final dataArray = array
+              .map((e) => _TypeIdPair.fromOrThrow(e))
+              .map((e) => e.toMap())
+              .toList();
+          relationships[key] = {_data: dataArray};
           json.remove(key);
           continue;
         }
-        final dataArray = array
-            .map((e) => _TypeIdPair.fromOrThrow(e))
-            .map((e) => e.toMap())
-            .toList();
-        relationships[key] = {_data: dataArray};
-        json.remove(key);
       }
       if (json[key] is Map<String, dynamic>) {
-        final map = json[key] as Map<String, dynamic>?;
+        final map = json[key] as Map<String, dynamic>;
         if (MapEquality().equals(map, _emptyRelationship)) {
           relationships[key] = {_data: null};
           json.remove(key);
           continue;
         }
         final typeIdPair = _TypeIdPair.from(map);
-        if (typeIdPair == null) {
-          attributes[key] = map;
+        if (typeIdPair != null) {
+          relationships[key] = {_data: typeIdPair.toMap()};
           json.remove(key);
           continue;
         }
-        relationships[key] = {_data: typeIdPair.toMap()};
-        json.remove(key);
-      }
-      if (json[key] == null) {
-        json.remove(key);
-        continue;
       }
       attributes[key] = json[key];
       json.remove(key);
     }
-    if (attributes.isNotEmpty) json[_attributes] = attributes;
-    if (relationships.isNotEmpty) json[_relationships] = relationships;
+    json[_attributes] = attributes;
+
+    if (relationships.isNotEmpty) {
+      json[_relationships] = relationships;
+    }
     return json;
   }
 

@@ -1,3 +1,9 @@
+## 2.2.0
+
+- Support for Dart 3
+- Support for encoding `null` attributes
+- Prevent encoding from producing empty `relationships`
+
 ## 2.1.0
 
 - Allowing nullable fields to be in response

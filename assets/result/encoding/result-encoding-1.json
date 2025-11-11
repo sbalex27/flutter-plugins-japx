@@ -4,7 +4,7 @@
     "attributes": {
       "email": "user@example.com",
       "password": "password",
-      "push_token": "x",
+      "push_token": null,
       "uuid": "123"
     }
   }
