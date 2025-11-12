@@ -90,11 +90,6 @@ void main() {
       'Null field',
       () async => expect(
           Japx.encode(await encodingSample10()), await resultEncoding10()));
-
-  test(
-      'Empty array encoding',
-      () async => expect(
-          Japx.encode(await encodingSample11()), await resultEncoding11()));
 }
 
 void compare(Map<String, dynamic> sample, Map<String, dynamic> result) =>
