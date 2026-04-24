@@ -223,10 +223,11 @@ class Japx {
       }
       if (json[key] is List) {
         final array = json[key] as List;
+        final isEmptyArray = array.isEmpty;
         final isArrayOfRelationships =
             array.firstOrNull is Map<String, dynamic> &&
                 _TypeIdPair.from(array.firstOrNull) != null;
-        if (isArrayOfRelationships) {
+        if (isArrayOfRelationships || isEmptyArray) {
           final dataArray = array
               .map((e) => _TypeIdPair.fromOrThrow(e))
               .map((e) => e.toMap())
