@@ -177,7 +177,33 @@ class Japx {
     });
 
     attributes.addAll(relationships);
+    _resolveRelationshipMeta(attributes, relationshipsReferences, attributes);
     return attributes;
+  }
+
+  static void _resolveRelationshipMeta(
+      Map<String, dynamic> result,
+      Map<String, dynamic>? relationships,
+      Map<String, dynamic> originalAttributes) {
+    relationships?.forEach((relationshipName, relationship) {
+      if (relationship is! Map<String, dynamic>) {
+        return;
+      }
+      final meta = relationship['meta'];
+      if (meta is! Map<String, dynamic>) {
+        return;
+      }
+      meta.forEach((key, value) {
+        final suffix =
+            key.isEmpty ? key : key[0].toUpperCase() + key.substring(1);
+        final name = '$relationshipName$suffix';
+        if (originalAttributes.containsKey(name)) {
+          result.putIfAbsent(name, () => originalAttributes[name]);
+        } else if (!result.containsKey(name)) {
+          result[name] = value;
+        }
+      });
+    });
   }
 
   static Map<String, dynamic> _decode(Map<String, dynamic> jsonApi) {
@@ -278,8 +304,12 @@ class Japx {
             object[key] = attributes[key];
           }
         }
-        object.remove(_attributes);
       }
+      _resolveRelationshipMeta(
+          object,
+          object[_relationships] as Map<String, dynamic>?,
+          (object[_attributes] ?? <String, dynamic>{}) as Map<String, dynamic>);
+      object.remove(_attributes);
     }
   }
 

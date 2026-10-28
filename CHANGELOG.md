@@ -1,3 +1,8 @@
+## Unreleased
+
+- Flatten relationship metadata into resource properties such as `productsCount`, including when using `includeList`.
+- Preserve existing attributes when their names collide with relationship metadata.
+
 ## 2.2.0
 
 - Support for Dart 3

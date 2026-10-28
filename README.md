@@ -22,6 +22,19 @@ It works by transferring `Map<String, dynamic>` to `Map<String, dynamic>`, so yo
 For decoding the API responses use function `Japx.decode(Map<String, dynamic> jsonApi, {String includeList})` which returns flattened JSON. 
 Include list is an optional parameter and it is used for deserializing JSON:API relationships.
 
+Relationship metadata is flattened onto its parent resource. For example,
+`"relationships": {"products": {"meta": {"count": 23}}}` produces
+`"productsCount": 23` in the decoded resource under `data`. Each name combines
+the relationship name with the metadata key's first letter capitalized; the
+remaining characters stay unchanged. Only the first level is flattened, and
+values (including nulls, lists, and objects) are preserved.
+
+Metadata is decoded even when a relationship has no `data` or is omitted from
+`includeList`, including on resolved nested resources. Existing attributes take
+priority over generated names, including attributes with null values. Missing,
+null, or non-object relationship metadata is ignored. Document and resource
+metadata are unaffected; encoding behavior is unchanged.
+
 For encoding use function `Japx.encode(Object json, {Map<String, dynamic> additionalParams})` which will return a JSON with JSON:API format.
 
 ## Decoding
